@@ -13,8 +13,8 @@ services:
     networks:
       - public
     environment:
-      INITIAL_ADMIN_PASSWORD: aePu7aic
-      QUANTUM_ENDPOINT: planetary-quantum
+      INITIAL_ADMIN_PASSWORD: change-me-change-me
+      QUANTUM_ENDPOINT: your-endpoint-or-cluster-name
 
 volumes:
   grafana-storage:

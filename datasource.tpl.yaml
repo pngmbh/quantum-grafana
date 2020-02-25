@@ -1,0 +1,11 @@
+apiVersion: 1
+datasources:
+  - name: "Docker Logs"
+    type: "loki"
+    access: proxy
+    url: "http://prometheus.planetary-networks.de/logs-customer"
+    jsonData:
+      httpHeaderName1: X-Scope-OrgID
+    secureJsonData:
+      httpHeaderValue1: {{ .QUANTUM_ENDPOINT }}
+    version: 1

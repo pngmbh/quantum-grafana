@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  grafana:
+    image: quay.io/pngmbh/quantum-grafana:latest
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: "public"
+      traefik.port: "3000"
+      traefik.frontend.rule: Host:grafana.portainer-12.docker.planetary-networks.de
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    networks:
+      - public
+    environment:
+      INITIAL_ADMIN_PASSWORD: aePu7aic
+      QUANTUM_ENDPOINT: planetary-quantum
+
+volumes:
+  grafana-storage:
+
+networks:
+  public:
+    external: true

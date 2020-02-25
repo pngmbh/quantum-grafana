@@ -7,7 +7,7 @@ services:
       traefik.enable: "true"
       traefik.docker.network: "public"
       traefik.port: "3000"
-      traefik.frontend.rule: Host:grafana.portainer-12.docker.planetary-networks.de
+      traefik.frontend.rule: Host:grafana.your-endpoint-or-cluster.docker.planetary-networks.de
     volumes:
       - grafana-storage:/var/lib/grafana
     networks:

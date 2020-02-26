@@ -3,7 +3,7 @@ datasources:
   - name: "Docker Logs"
     type: "loki"
     access: proxy
-    url: "http://prometheus.planetary-networks.de/logs-customer"
+    url: "http://logs.planetary-quantum.com/logs-customer"
     jsonData:
       httpHeaderName1: X-Scope-OrgID
     secureJsonData:

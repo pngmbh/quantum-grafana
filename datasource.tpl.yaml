@@ -1,11 +1,12 @@
 apiVersion: 1
 datasources:
-  - name: "Docker Logs"
+  - name: "Logs"
     type: "loki"
     access: proxy
     url: "http://logs.planetary-quantum.com/logs-customer"
-    jsonData:
-      httpHeaderName1: X-Scope-OrgID
-    secureJsonData:
-      httpHeaderValue1: {{ .QUANTUM_ENDPOINT }}
+    version: 1
+  - name: "Metrics"
+    type: "prometheus"
+    access: proxy
+    url: "https://metrics.planetary-quantum.com/remote-write/api/prom"
     version: 1

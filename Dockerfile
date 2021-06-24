@@ -9,6 +9,8 @@ RUN export VERSION=1.2.2 && cd /tmp && \
 USER grafana
 
 COPY datasource.tpl.yaml /tmp/datasource.tpl.yaml
+COPY dashboard-provider.yaml /etc/grafana/provisioning/dashboards/dashboard-provider.yml
+COPY swarm-dashboard.json /var/lib/grafana/dashboards/swarm.json
 
 ENTRYPOINT ["/bin/sh", "-c"]
 CMD ["export GF_SECURITY_ADMIN_PASSWORD=\"$INITIAL_ADMIN_PASSWORD\" && gucci /tmp/datasource.tpl.yaml > /etc/grafana/provisioning/datasources/loki.yml && /run.sh"]

@@ -17,16 +17,12 @@
   "gnetId": 893,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1624541496263,
+  "iteration": 1624630311323,
   "links": [],
   "panels": [
     {
       "collapsed": false,
       "datasource": "Metrics",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -180,7 +176,8 @@
       "pluginVersion": "8.0.3",
       "targets": [
         {
-          "expr": "count(rate(container_last_seen{container_label_com_docker_stack_namespace=~\".+\"}[$interval]))",
+          "exemplar": true,
+          "expr": "count(count by (container_label_com_docker_stack_namespace) (rate(container_last_seen{container_label_com_docker_stack_namespace=~\".+\",instance=\"$server\"}[$interval])))",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
@@ -560,15 +557,19 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(container_network_receive_bytes_total{id=\"/\"}[$interval])) by (id)",
+          "exemplar": true,
+          "expr": "sum(rate(container_network_receive_bytes_total{id=\"/\",instance=\"$server\"}[$interval])) by (id)",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "RECEIVED",
           "refId": "A",
           "step": 600
         },
         {
-          "expr": "- sum(rate(container_network_transmit_bytes_total{id=\"/\"}[$interval])) by (id)",
+          "exemplar": true,
+          "expr": "- sum(rate(container_network_transmit_bytes_total{id=\"/\",instance=\"$server\"}[$interval])) by (id)",
           "hide": false,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "SENT",
           "refId": "B",
@@ -665,8 +666,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_system_seconds_total[1m]))",
+          "exemplar": true,
+          "expr": "sum(rate(container_cpu_system_seconds_total{instance=\"$server\"}[1m]))",
           "hide": true,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "a",
           "refId": "B",
@@ -692,7 +695,8 @@
           "step": 20
         },
         {
-          "expr": "sum(rate(process_cpu_seconds_total[$interval])) * 100",
+          "exemplar": true,
+          "expr": "sum(rate(process_cpu_seconds_total{instance=\"$server\"}[$interval])) * 100",
           "hide": false,
           "interval": "",
           "intervalFactor": 2,
@@ -753,40 +757,6 @@
       }
     },
     {
-      "alert": {
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                1.25
-              ],
-              "type": "gt"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "frequency": "60s",
-        "handler": 1,
-        "name": "Panel Title alert",
-        "noDataState": "keep_state",
-        "notifications": [
-          {
-            "id": 1
-          }
-        ]
-      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -840,16 +810,7 @@
           "step": 600
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 1.25,
-          "visible": true
-        }
-      ],
+      "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -870,6 +831,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:1061",
           "format": "percentunit",
           "label": null,
           "logBase": 1,
@@ -878,6 +840,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:1062",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -892,40 +855,6 @@
       }
     },
     {
-      "alert": {
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                850000000000
-              ],
-              "type": "gt"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "frequency": "60s",
-        "handler": 1,
-        "name": "Free/Used Disk Space alert",
-        "noDataState": "keep_state",
-        "notifications": [
-          {
-            "id": 1
-          }
-        ]
-      },
       "aliasColors": {
         "Belegete Festplatte": "#BF1B00",
         "Free Disk Space": "#7EB26D",
@@ -981,7 +910,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_free_bytes{mountpoint=\"/\"}",
+          "exemplar": true,
+          "expr": "node_filesystem_size_bytes{mountpoint=\"/\",instance=\"$server\"} - node_filesystem_free_bytes{mountpoint=\"/\",instance=\"$server\"}",
           "hide": false,
           "interval": "",
           "intervalFactor": 2,
@@ -990,16 +920,7 @@
           "step": 600
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 850000000000,
-          "visible": true
-        }
-      ],
+      "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -1020,6 +941,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:966",
           "format": "bytes",
           "label": "",
           "logBase": 1,
@@ -1028,6 +950,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:967",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1042,40 +965,6 @@
       }
     },
     {
-      "alert": {
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                10000000000
-              ],
-              "type": "gt"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "frequency": "60s",
-        "handler": 1,
-        "name": "Available Memory alert",
-        "noDataState": "keep_state",
-        "notifications": [
-          {
-            "id": 1
-          }
-        ]
-      },
       "aliasColors": {
         "Available Memory": "#7EB26D",
         "Unavailable Memory": "#7EB26D"
@@ -1190,7 +1079,8 @@
           "step": 20
         },
         {
-          "expr": "node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes",
+          "exemplar": true,
+          "expr": "node_memory_MemTotal_bytes{instance=\"$server\"} - node_memory_MemAvailable_bytes{instance=\"$server\"}",
           "hide": false,
           "interval": "",
           "intervalFactor": 2,
@@ -1255,16 +1145,7 @@
           "step": 40
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 10000000000,
-          "visible": true
-        }
-      ],
+      "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -1285,6 +1166,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:1128",
           "format": "bytes",
           "label": "",
           "logBase": 1,
@@ -1293,6 +1175,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:1129",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1912,7 +1795,7 @@
       }
     }
   ],
-  "refresh": false,
+  "refresh": "",
   "schemaVersion": 30,
   "style": "dark",
   "tags": [],
@@ -2039,5 +1922,5 @@
   "timezone": "browser",
   "title": "Usage By Stack",
   "uid": "jDWFKjEMz",
-  "version": 3
+  "version": 7
 }

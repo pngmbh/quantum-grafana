@@ -2,7 +2,8 @@
 
 https://www.planetary-quantum.com/
 
-This starts up a Grafana on your Quantum cluster, to view your docker logs.
+This starts up a Grafana on your Quantum cluster, to view your docker logs and
+some basic metrics about your Quantum cluster.
 
 ## Deploy
 
@@ -27,3 +28,6 @@ You'll need [`quantum-cli`](https://cli.planetary-quantum.com/).
 * select some log label via the drop-down next to the search bar
   ![log label selection](img/log_labels.png)
 * you should now see your logs
+
+For metrics: go to Dashboards => Manage. There should be one pre-configured
+dashboard "Usage by Stack".

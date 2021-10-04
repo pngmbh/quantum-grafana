@@ -3,7 +3,7 @@ datasources:
   - name: "Logs"
     type: "loki"
     access: proxy
-    url: "http://logs.planetary-quantum.com/logs-customer"
+    url: "https://logs.planetary-quantum.com/logs-customer"
     version: 1
   - name: "Metrics"
     type: "prometheus"

@@ -1,3 +1,7 @@
+|![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Warning.svg/156px-Warning.svg.png) | This repository is no longer maintained.<br />Please [see the new repository](https://github.com/hostwithquantum/grafana-stack) for more detail. |
+|---:|---|
+| :point_right: | https://github.com/hostwithquantum/grafana-stack |
+
 # Grafana Setup for Planetary Quantum
 
 https://www.planetary-quantum.com/
